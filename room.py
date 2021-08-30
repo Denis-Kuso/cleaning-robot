@@ -52,8 +52,8 @@ class RectangularRoom(object):
         # set attributes
         self.width = width
         self.height = height
-        #raise NotImplementedError# I assume this is now redudant
         self.cleaned_tiles = []
+
     def get_width(self):
         return self.width
     
@@ -99,8 +99,7 @@ class RectangularRoom(object):
         Return the total number of clean tiles in the room.
         returns: an integer
         """
-        # 
-        # return 
+        
         return len(self.cleaned_tiles)
 
     def getRandomPosition(self):
@@ -115,7 +114,7 @@ class RectangularRoom(object):
         y = 0
         coords = []
         
-        # Generate tiles for the entire room according to 
+        # Generate tiles for the entire room  
         for x,y in zip(range(self.get_width()),range(self.get_height())):
             x_s.append(x)
             y_s.append(y)
