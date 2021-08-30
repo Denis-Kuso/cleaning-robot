@@ -86,7 +86,6 @@ class RectangularRoom(object):
             return True
         else:
             return False
-        # raise NotImplementedError
     
     def getNumTiles(self):
         """
@@ -94,7 +93,6 @@ class RectangularRoom(object):
         returns: an integer
         """
         return self.width * self.height
-        # raise NotImplementedError
 
     def getNumCleanedTiles(self):
         """
@@ -104,7 +102,6 @@ class RectangularRoom(object):
         # 
         # return 
         return len(self.cleaned_tiles)
-        # raise NotImplementedError
 
     def getRandomPosition(self):
         """
