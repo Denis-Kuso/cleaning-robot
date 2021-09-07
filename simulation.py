@@ -1,5 +1,5 @@
 import matplotlib.pyplot as plt
-import visualize 
+import visualize as vs
 from room import *
 from robot import *
 # # Run simulations for MIT's room sizes and fraction of room cleaned
@@ -32,7 +32,7 @@ def runSimulation(num_robots, speed, width, height, min_coverage, num_trials,
     # Repeat simulation num_trials times
     for trial in range(num_trials):
         if visualize:
-            anim = visualize.RobotVisualization(num_robots, width, height)
+            anim = vs.RobotVisualization(num_robots, width, height)
         room = RectangularRoom(width, height)
         total_time = 0.0
         robotCollection =[]
@@ -67,31 +67,32 @@ def runSimulation(num_robots, speed, width, height, min_coverage, num_trials,
 # num_robots = 1
 
 
-def showPlot1(saveFig=False):
+def showPlot1(saveFig = False):
     """
     Produces a plot showing dependence of cleaning time on number of robots.
     """
     # calculate mean time for 1-10 robots
     mean_times = []
-    num_trials = 10
-    width = height = 20
-    clean_fraction = 80
+    NUM_TRIALS = 10
+    WIDTH = HEIGHT = 20
+    CLEAN_FRACTION = 80
+    SPEED = 1
     robo_number = []
     NUM_OF_ROBOTS = 10
 
     # Simulate cleaning of room with 1 up to NUM_OF_ROBOTS
     for robot in range(1,NUM_OF_ROBOTS +1):
         robo_number.append(robot)
-        mean_times.append(runSimulation(robot,1, width, height,clean_fraction/100,num_trials,StandardRobot))
+        mean_times.append(runSimulation(robot,SPEED, WIDTH, HEIGHT, CLEAN_FRACTION/100,NUM_TRIALS,StandardRobot))
     
     # Plot
     title = 'Time to clean fraction of room with varried number of robots'
     plt.style.use('ggplot')
     plt.plot(robo_number,mean_times,'bo-.',lw=2)
-    plt.ylabel(f'Mean time with {num_trials} trials')
+    plt.ylabel(f'Mean time with {NUM_TRIALS} trials')
     plt.minorticks_off()
     plt.xlabel('Number of robots')
-    plt.title(f"Time to clean {clean_fraction}% of a {width}x{height} room")
+    plt.title(f"Time to clean {CLEAN_FRACTION}% of a {WIDTH}x{HEIGHT} room")
     plt.show()
     
     if saveFig:
