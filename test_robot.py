@@ -1,7 +1,7 @@
 # Testing class Robot     
 import unittest
-import robot
-import room 
+from robot import *
+from room import * 
 a = 5
 b = 10
 speed = 1
