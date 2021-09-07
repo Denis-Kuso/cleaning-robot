@@ -33,7 +33,6 @@ class Position(object):
         new_y = old_y + delta_y
         return Position(new_x, new_y)
 
-# === Problems 1
 
 class RectangularRoom(object):
     """
@@ -49,7 +48,6 @@ class RectangularRoom(object):
         width: an integer > 0
         height: an integer > 0
         """
-        # set attributes
         self.width = width
         self.height = height
         self.cleaned_tiles = []
@@ -68,7 +66,7 @@ class RectangularRoom(object):
         pos: a Position
         """
      
-        # add tile of current location to cleaned tiles
+        # add current location to cleaned tiles
         if (int(pos.getX()),int(pos.getY())) not in self.cleaned_tiles:
             self.cleaned_tiles.append((int(pos.getX()),int(pos.getY())))
     
@@ -81,7 +79,6 @@ class RectangularRoom(object):
         n: an integer
         returns: True if (m, n) is cleaned, False otherwise
         """
-        # Check if (m,n) is in cleaned_tiles
         if (m,n) in self.cleaned_tiles:
             return True
         else:
