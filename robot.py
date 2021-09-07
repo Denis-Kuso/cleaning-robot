@@ -1,18 +1,7 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-"""
-Created on Sun Feb  7 11:38:25 2021
-@author: deniskusic
-"""
-# Problem Set 6: Simulating robots
-# Name: Denis
-# Collaborators: Tamara pomalo
-# Time:
 
 import math
 import random as random
 from room import Position
-import visualize
 
 
 class Robot(object):
@@ -35,9 +24,7 @@ class Robot(object):
         self.speed = speed
         # Choose x and y coordinates within the room
         self.position = self.room.getRandomPosition()
-        #self.position = Position(random.choice(range(room.get_width())),random.choice(range(room.get_height())))
         self.direction = random.choice(range(360))
-        # Should I clean the tile here?
 
     def getRobotPosition(self):
         """
@@ -76,11 +63,10 @@ class Robot(object):
         """
         # Clean tile at current position
         self.room.cleanTileAtPosition(self.getRobotPosition())
-        # Change position, looks cluttered
+        # Change position
         self.setRobotPosition(self.getRobotPosition().getNewPosition(self.direction,self.speed))
 
 
-# === Problem 2
 class StandardRobot(Robot):
     """
     A StandardRobot is a Robot with the standard movement strategy.
@@ -100,8 +86,7 @@ class StandardRobot(Robot):
         potential_pos = self.getRobotPosition().getNewPosition(self.direction,self.speed)
         # Change potential positions so the wall is not hit 
         while self.room.isPositionInRoom(potential_pos)==False:
-            # # Change direction randomly and update possible position
-            #print('entered while loop')
+            # Change direction randomly and update possible position
             self.direction = random.choice(range(360))
             #print('Trying new direction =', self.direction)
             potential_pos = self.getRobotPosition().getNewPosition(self.direction,self.speed)
@@ -110,15 +95,6 @@ class StandardRobot(Robot):
         self.setRobotPosition(potential_pos)
         
 
-
-# === Problem 4
-#
-# 1) How long does it take to clean 80% of a 20◊20 room with each of 1-10 robots?
-#
-# 2) How long does it take two robots to clean 80% of rooms with dimensions 
-#	 20◊20, 25◊16, 40◊10, 50◊8, 80◊5, and 100◊4?
-
-# === Problem 5
 
 class RandomWalkRobot(Robot):
     """
@@ -138,7 +114,7 @@ class RandomWalkRobot(Robot):
         # Try changing position
         potential_pos = self.getRobotPosition().getNewPosition(random.randint(0,359),self.speed)
         # Change potential position if the wall would be hit 
-        while self.room.isPositionInRoom(potential_pos)==False:
+        while self.room.isPositionInRoom(potential_pos) == False:
             # # Change direction randomly and update possible position
             self.direction = random.choice(range(360))
             potential_pos = self.getRobotPosition().getNewPosition(random.randint(0,359),self.speed)
@@ -146,9 +122,3 @@ class RandomWalkRobot(Robot):
         # Move robot
         self.setRobotPosition(potential_pos)
 
-    
-# === Problem 6
-
-# For the parameters tested below (cleaning 80% of a 20x20 square room),
-# RandomWalkRobots take approximately twice as long to clean the same room as
-# StandardRobots do.
