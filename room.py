@@ -8,8 +8,16 @@ class Position(object):
         """
         Initializes a position with coordinates (x, y).
         """
-        self.x = x
-        self.y = y
+        if type(x) != float or type(y) != float:
+            print('Position accepts coordinates of type: float')
+            raise TypeError
+        elif x < 0 or y < 0:
+            print('Coordinates must be positive floats')
+            raise ValueError
+        else:
+            self.x = x
+            self.y = y
+    
     def getX(self):
         return self.x
     def getY(self):
@@ -123,7 +131,7 @@ class RectangularRoom(object):
         rand_x = random.choice(x_s)
         rand_y = random.choice(y_s)
         
-        return Position(rand_x,rand_y)
+        return Position(float(rand_x),float(rand_y))
 
     def isPositionInRoom(self, pos):
         """
