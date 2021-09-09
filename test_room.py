@@ -44,6 +44,9 @@ class TestRoom(unittest.TestCase):
     def testInputForRoom(self):
         self.assertRaises(TypeError,RectangularRoom,self.a,self.b)
         self.assertRaises(ValueError,RectangularRoom,self.h,int(self.a2))
+        self.assertRaises(TypeError,self.room1.cleanTileAtPosition,self.a1)
+        self.assertRaises(AssertionError,self.room1.isTileCleaned,self.a,self.b)
+        self.assertRaises(AssertionError,self.room1.isPositionInRoom,self.b)
     def test_getX(self):
         self.assertEqual(self.position1.getX(),self.a)
     
