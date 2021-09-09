@@ -32,14 +32,19 @@ class Position(object):
         speed: positive float representing speed
         Returns: a Position object representing the new position.
         """
-        old_x, old_y = self.getX(), self.getY()
-        # Compute the change in position
-        delta_y = speed * math.cos(math.radians(angle))
-        delta_x = speed * math.sin(math.radians(angle))
-        # Add that to the existing position
-        new_x = old_x + delta_x
-        new_y = old_y + delta_y
-        return Position(new_x, new_y)
+        if type(angle) != float or type(speed) != float:
+            raise TypeError
+        elif angle > 360 or angle < 0 or speed <0:
+            raise ValueError
+        else:
+            old_x, old_y = self.getX(), self.getY()
+            # Compute the change in position
+            delta_y = speed * math.cos(math.radians(angle))
+            delta_x = speed * math.sin(math.radians(angle))
+            # Add that to the existing position
+            new_x = old_x + delta_x
+            new_y = old_y + delta_y
+            return Position(new_x, new_y)
 
 
 class RectangularRoom(object):
@@ -56,9 +61,16 @@ class RectangularRoom(object):
         width: an integer > 0
         height: an integer > 0
         """
-        self.width = width
-        self.height = height
-        self.cleaned_tiles = []
+        if type(width) != int or type(height) != int:
+            raise TypeError
+        elif width<=0 or height <=0:
+            print('Room can only have dimensions greater than zero')
+            raise ValueError
+        
+        else:
+            self.width = width
+            self.height = height
+            self.cleaned_tiles = []
 
     def get_width(self):
         return self.width
@@ -73,10 +85,13 @@ class RectangularRoom(object):
         Assumes that POS represents a valid position inside this room.
         pos: a Position
         """
-     
-        # add current location to cleaned tiles
-        if (int(pos.getX()),int(pos.getY())) not in self.cleaned_tiles:
-            self.cleaned_tiles.append((int(pos.getX()),int(pos.getY())))
+        if not isinstance(pos,Position):
+            print('Position needs to be of type: Position')
+            raise TypeError
+        else:    
+            # add current location to cleaned tiles
+            if (int(pos.getX()),int(pos.getY())) not in self.cleaned_tiles:
+                self.cleaned_tiles.append((int(pos.getX()),int(pos.getY())))
     
 
     def isTileCleaned(self, m, n):
@@ -87,6 +102,7 @@ class RectangularRoom(object):
         n: an integer
         returns: True if (m, n) is cleaned, False otherwise
         """
+        assert (type(m) and type(n)) == int
         if (m,n) in self.cleaned_tiles:
             return True
         else:
@@ -139,6 +155,7 @@ class RectangularRoom(object):
         pos: a Position object.
         returns: True if pos is in the room, False otherwise.
         """
+        assert isinstance(pos, Position)
         if 0 <= pos.getX() <= self.get_width() and 0 <= pos.getY() <= self.get_height():
             return True
         else:

@@ -5,8 +5,6 @@ class TestRoom(unittest.TestCase):
     # Create instances of Position and Room objects 
     # test for invalid input to instances of Room, position, or where input is given?
     # Which functions receive input?
-        # Initialisation of Position - CHECK
-        # POS.getNewPos - raise error for angle and speed
         # Initialisation of Room - assert ints
         # Room.cleanTileAtPosition - pos object
         # Room.isTileCleaned - ints- no check
@@ -23,19 +21,16 @@ class TestRoom(unittest.TestCase):
         self.c = self.w + 1.0
         self.d = self.h + 1.0
         
-
         # Input to test exceptions
-        # Provided wrong type
+        # Input wrong type
         self.a1 = 'Three'
-        # Provided negative coordinates
-        self.a2 = -0.1
+        # Input negative coordinates
+        self.a2 = -1.0
         
         # Create test instances
         self.room1 = RectangularRoom(self.w, self.h)
         self.position1 = Position(self.a, self.b)
         self.position2 = Position(self.c, self.d)
-        #self.positionWrongInput = Position(self.a1,self.b)
-        #self.positionNegativeCoords = Position(self.a2, self.b)
 
     def tearDown(self):
         pass
@@ -45,7 +40,10 @@ class TestRoom(unittest.TestCase):
         self.assertRaises(ValueError,Position,self.a2, self.b)
 
         self.assertRaises(TypeError,self.position1.getNewPosition,self.a1,self.a2)
-        
+
+    def testInputForRoom(self):
+        self.assertRaises(TypeError,RectangularRoom,self.a,self.b)
+        self.assertRaises(ValueError,RectangularRoom,self.h,int(self.a2))
     def test_getX(self):
         self.assertEqual(self.position1.getX(),self.a)
     
@@ -53,8 +51,8 @@ class TestRoom(unittest.TestCase):
         self.assertEqual(self.position1.getY(),self.b)
 
     def test_getNewPosition(self):
-        ANGLE = 20
-        SPEED = 10
+        ANGLE = 20.0
+        SPEED = 10.0
         # Old coordinates and change in coordinates
         old_x = self.position1.getX()
         old_y = self.position1.getY()
@@ -84,7 +82,7 @@ class TestRoom(unittest.TestCase):
         dy = 3
         
         self.room1.cleanTileAtPosition(self.position1)
-        self.assertTrue(self.room1.isTileCleaned(self.a, self.b))
+        self.assertTrue(self.room1.isTileCleaned(int(self.a), int(self.b)))
         self.assertFalse(self.room1.isTileCleaned(dx, dy))
     
     def test_getNumTiles(self):
