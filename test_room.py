@@ -3,23 +3,49 @@ import unittest
 
 class TestRoom(unittest.TestCase):
     # Create instances of Position and Room objects 
-    
+    # test for invalid input to instances of Room, position, or where input is given?
+    # Which functions receive input?
+        # Initialisation of Position - CHECK
+        # POS.getNewPos - raise error for angle and speed
+        # Initialisation of Room - assert ints
+        # Room.cleanTileAtPosition - pos object
+        # Room.isTileCleaned - ints- no check
+        # Room.isPositionInRoom - receive pos object%
     def setUp(self):
         print('SetUp')
-        self.a = 1
-        self.b = 1
+        # coordinates for position in room
+        self.a = 1.0
+        self.b = 1.0
+        # Dimensions for room
         self.h = 10
         self.w = 10
-        self.c = self.w + 1 # Coordinates for position outside room
-        self.d = self.h + 1
+        # Coordinates for position outside room
+        self.c = self.w + 1.0
+        self.d = self.h + 1.0
         
+
+        # Input to test exceptions
+        # Provided wrong type
+        self.a1 = 'Three'
+        # Provided negative coordinates
+        self.a2 = -0.1
+        
+        # Create test instances
         self.room1 = RectangularRoom(self.w, self.h)
         self.position1 = Position(self.a, self.b)
         self.position2 = Position(self.c, self.d)
+        #self.positionWrongInput = Position(self.a1,self.b)
+        #self.positionNegativeCoords = Position(self.a2, self.b)
 
     def tearDown(self):
         pass
+    
+    def testInputForPosition(self):
+        self.assertRaises(TypeError,Position,self.a1,self.b)
+        self.assertRaises(ValueError,Position,self.a2, self.b)
 
+        self.assertRaises(TypeError,self.position1.getNewPosition,self.a1,self.a2)
+        
     def test_getX(self):
         self.assertEqual(self.position1.getX(),self.a)
     

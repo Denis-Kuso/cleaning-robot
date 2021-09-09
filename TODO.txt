@@ -1,0 +1,8 @@
+# test for invalid input to instances of Room, position, or where input is given?
+    # Which functions receive input?
+        # Initialisation of Position
+        # POS.getNewPos - raise error for angle and speed
+        # Initialisation of Room - assert ints
+        # Room.cleanTileAtPosition - pos object
+        # Room.isTileCleaned - ints- no check
+        # Room.isPositionInRoom - receive pos object
