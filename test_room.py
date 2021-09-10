@@ -2,22 +2,16 @@ from room import *
 import unittest
 
 class TestRoom(unittest.TestCase):
-    # Create instances of Position and Room objects 
-    # test for invalid input to instances of Room, position, or where input is given?
-    # Which functions receive input?
-        # Initialisation of Room - assert ints
-        # Room.cleanTileAtPosition - pos object
-        # Room.isTileCleaned - ints- no check
-        # Room.isPositionInRoom - receive pos object%
+    
     def setUp(self):
         print('SetUp')
-        # coordinates for position in room
+        # coordinates for valid position in room
         self.a = 1.0
         self.b = 1.0
-        # Dimensions for room
+        # Valid dimensions for room
         self.h = 10
         self.w = 10
-        # Coordinates for position outside room
+        # Coordinates for (invalid) position outside room
         self.c = self.w + 1.0
         self.d = self.h + 1.0
         
@@ -27,7 +21,7 @@ class TestRoom(unittest.TestCase):
         # Input negative coordinates
         self.a2 = -1.0
         
-        # Create test instances
+        # Test instances
         self.room1 = RectangularRoom(self.w, self.h)
         self.position1 = Position(self.a, self.b)
         self.position2 = Position(self.c, self.d)
@@ -38,15 +32,22 @@ class TestRoom(unittest.TestCase):
     def testInputForPosition(self):
         self.assertRaises(TypeError,Position,self.a1,self.b)
         self.assertRaises(ValueError,Position,self.a2, self.b)
-
         self.assertRaises(TypeError,self.position1.getNewPosition,self.a1,self.a2)
 
     def testInputForRoom(self):
-        self.assertRaises(TypeError,RectangularRoom,self.a,self.b)
-        self.assertRaises(ValueError,RectangularRoom,self.h,int(self.a2))
-        self.assertRaises(TypeError,self.room1.cleanTileAtPosition,self.a1)
-        self.assertRaises(AssertionError,self.room1.isTileCleaned,self.a,self.b)
-        self.assertRaises(AssertionError,self.room1.isPositionInRoom,self.b)
+        expectedErr = [TypeError,ValueError,TypeError,AssertionError,AssertionError]
+        fncs = [RectangularRoom,RectangularRoom,self.room1.cleanTileAtPosition,
+        self.room1.isTileCleaned,self.room1.isPositionInRoom]
+        inputs = [(self.a,self.b),(self.h,int(self.a2)),(self.a1,self.b),(self.a,self.b),(self.b,)]
+        for example in range(len(expectedErr)):
+            print(inputs[example])
+            self.assertRaises(expectedErr[example],fncs[example],*inputs[example])
+        # self.assertRaises(TypeError,RectangularRoom,self.a,self.b)
+        # self.assertRaises(ValueError,RectangularRoom,self.h,int(self.a2))
+        # self.assertRaises(TypeError,self.room1.cleanTileAtPosition,self.a1)
+        # self.assertRaises(AssertionError,self.room1.isTileCleaned,self.a,self.b)
+        # self.assertRaises(AssertionError,self.room1.isPositionInRoom,self.b)
+    
     def test_getX(self):
         self.assertEqual(self.position1.getX(),self.a)
     
@@ -71,7 +72,6 @@ class TestRoom(unittest.TestCase):
         self.assertAlmostEqual(position3.getX(),exp_x)
         self.assertAlmostEqual(position3.getY(),exp_y)
         
-
     def test_get_width(self):
         self.assertEqual(self.room1.get_width(),self.w)
 
