@@ -1,7 +1,7 @@
 
 import math
 import random as random
-from room import Position
+from room import *
 
 
 class Robot(object):
@@ -20,11 +20,17 @@ class Robot(object):
         room:  a RectangularRoom object.
         speed: a float (speed > 0)
         """
-        self.room = room
-        self.speed = speed
-        # Choose x and y coordinates within the room
-        self.position = self.room.getRandomPosition()
-        self.direction = random.choice(range(360))
+        if not isinstance(room,RectangularRoom) or type(speed) != float:
+            raise TypeError
+        elif speed <= 0:
+            print('Speed should be greater than zero!')
+            raise ValueError
+        else:    
+            self.room = room
+            self.speed = speed
+            # Choose x and y coordinates within the room
+            self.position = self.room.getRandomPosition()
+            self.direction = random.choice(range(360))
 
     def getRobotPosition(self):
         """
@@ -46,14 +52,20 @@ class Robot(object):
         Set the position of the robot to POSITION.
         position: a Position object.
         """
-        self.position = Position(position.getX(),position.getY())
+        if not isinstance(position,Position):
+            raise TypeError
+        else:
+            self.position = Position(position.getX(),position.getY())
 
     def setRobotDirection(self, direction):
         """
         Set the direction of the robot to DIRECTION.
         direction: integer representing an angle in degrees
         """
-        self.direction = direction
+        if type(direction) !=int:
+            raise TypeError
+        else:
+            self.direction = direction
 
     def updatePositionAndClean(self):
         """

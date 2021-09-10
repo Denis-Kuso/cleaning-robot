@@ -36,18 +36,12 @@ class TestRoom(unittest.TestCase):
 
     def testInputForRoom(self):
         expectedErr = [TypeError,ValueError,TypeError,AssertionError,AssertionError]
-        fncs = [RectangularRoom,RectangularRoom,self.room1.cleanTileAtPosition,
-        self.room1.isTileCleaned,self.room1.isPositionInRoom]
+        fncs = [RectangularRoom,RectangularRoom,self.room1.cleanTileAtPosition,self.room1.isTileCleaned,self.room1.isPositionInRoom]
         inputs = [(self.a,self.b),(self.h,int(self.a2)),(self.a1,self.b),(self.a,self.b),(self.b,)]
+        
         for example in range(len(expectedErr)):
-            print(inputs[example])
             self.assertRaises(expectedErr[example],fncs[example],*inputs[example])
-        # self.assertRaises(TypeError,RectangularRoom,self.a,self.b)
-        # self.assertRaises(ValueError,RectangularRoom,self.h,int(self.a2))
-        # self.assertRaises(TypeError,self.room1.cleanTileAtPosition,self.a1)
-        # self.assertRaises(AssertionError,self.room1.isTileCleaned,self.a,self.b)
-        # self.assertRaises(AssertionError,self.room1.isPositionInRoom,self.b)
-    
+        
     def test_getX(self):
         self.assertEqual(self.position1.getX(),self.a)
     
@@ -62,7 +56,6 @@ class TestRoom(unittest.TestCase):
         old_y = self.position1.getY()
         delta_x = SPEED * math.sin(math.radians(ANGLE))
         delta_y = SPEED * math.cos(math.radians(ANGLE))
-        
         position3 = self.position1.getNewPosition(ANGLE, SPEED)
         # Expected coordinates
         exp_x = delta_x + old_x
@@ -79,8 +72,7 @@ class TestRoom(unittest.TestCase):
         self.assertEqual(self.room1.get_height(),self.h)
 
     def test_cleanTileAtPosition(self):
-        # Provide tiles (one clean, one not clean, invalid tile, invalid output)
-        # dirty tile
+        # Tiles not yet cleaned
         dx = 2
         dy = 3
         
