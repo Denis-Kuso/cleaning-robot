@@ -11,12 +11,12 @@ class Position(object):
         if type(x) != float or type(y) != float:
             print('Position accepts coordinates of type: float')
             raise TypeError
-        elif x < 0 or y < 0:
-            print('Coordinates must be positive floats')
-            raise ValueError
         else:
             self.x = x
             self.y = y
+
+    def __repr__(self):
+        return f'Position({self.x}, {self.y})'
     
     def getX(self):
         return self.x
@@ -28,11 +28,11 @@ class Position(object):
         passed, with this object as the current position, and with the
         specified angle and speed.
         Does NOT test whether the returned position fits inside the room.
-        angle: float representing angle in degrees, 0 <= angle < 360
+        angle: int representing angle in degrees, 0 <= angle < 360
         speed: positive float representing speed
         Returns: a Position object representing the new position.
         """
-        if type(angle) != float or type(speed) != float:
+        if type(angle) != int or type(speed) != float:
             raise TypeError
         elif angle > 360 or angle < 0 or speed <0:
             raise ValueError
@@ -72,13 +72,15 @@ class RectangularRoom(object):
             self.height = height
             self.cleaned_tiles = []
 
+    def __repr__(self):
+        return f'RectangularRoom({self.width} , {self.height})'
+
     def get_width(self):
         return self.width
     
     def get_height(self):
         return self.height
 
-           
     def cleanTileAtPosition(self, pos):
         """
         Mark the tile under the position POS as cleaned.
@@ -156,7 +158,7 @@ class RectangularRoom(object):
         returns: True if pos is in the room, False otherwise.
         """
         assert isinstance(pos, Position)
-        if 0 <= pos.getX() <= self.get_width() and 0 <= pos.getY() <= self.get_height():
+        if (0 <= pos.getX() <= self.get_width()) and (0 <= pos.getY() <= self.get_height()):
             return True
         else:
             return False

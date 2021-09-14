@@ -5,6 +5,7 @@ from room import *
 
 
 class Robot(object):
+    MAX_DEGREE = 360
     """
     Represents a robot cleaning a particular room.
     At all times the robot has a particular position and direction in the room.
@@ -30,7 +31,10 @@ class Robot(object):
             self.speed = speed
             # Choose x and y coordinates within the room
             self.position = self.room.getRandomPosition()
-            self.direction = random.choice(range(360))
+            self.direction = random.choice(range(self.MAX_DEGREE))
+    
+    def __repr__(self):
+        return f'self.__class__.__name__.({self.room},{self.speed})'
 
     def getRobotPosition(self):
         """
@@ -94,17 +98,15 @@ class StandardRobot(Robot):
         # Clean tile at current position
         self.room.cleanTileAtPosition(self.getRobotPosition())
         
-        # Try changing position
-        potential_pos = self.getRobotPosition().getNewPosition(self.direction,self.speed)
-        # Change potential positions so the wall is not hit 
-        while self.room.isPositionInRoom(potential_pos)==False:
-            # Change direction randomly and update possible position
-            self.direction = random.choice(range(360))
-            #print('Trying new direction =', self.direction)
-            potential_pos = self.getRobotPosition().getNewPosition(self.direction,self.speed)
-        
+        candidatePosition = self.position.getNewPosition(self.direction, self.speed)
+        if self.room.isPositionInRoom(candidatePosition):
+            self.setRobotPosition(candidatePosition)
+            self.room.cleanTileAtPosition(self.position)
+        else:
+            self.direction = random.choice(range(self.MAX_DEGREE))
+
         # Move robot
-        self.setRobotPosition(potential_pos)
+        self.setRobotPosition(candidatePosition)
         
 
 
@@ -124,12 +126,12 @@ class RandomWalkRobot(Robot):
         self.room.cleanTileAtPosition(self.getRobotPosition())
         
         # Try changing position
-        potential_pos = self.getRobotPosition().getNewPosition(random.randint(0,359),self.speed)
+        potential_pos = self.getRobotPosition().getNewPosition(random.choice(range(self.MAX_DEGREE)),self.speed)
         # Change potential position if the wall would be hit 
         while self.room.isPositionInRoom(potential_pos) == False:
             # # Change direction randomly and update possible position
-            self.direction = random.choice(range(360))
-            potential_pos = self.getRobotPosition().getNewPosition(random.randint(0,359),self.speed)
+            self.direction = random.choice(range(self.MAX_DEGREE))
+            potential_pos = self.getRobotPosition().getNewPosition(random.choice(range(self.MAX_DEGREE)),self.speed)
         
         # Move robot
         self.setRobotPosition(potential_pos)

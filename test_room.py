@@ -31,7 +31,6 @@ class TestRoom(unittest.TestCase):
     
     def testInputForPosition(self):
         self.assertRaises(TypeError,Position,self.a1,self.b)
-        self.assertRaises(ValueError,Position,self.a2, self.b)
         self.assertRaises(TypeError,self.position1.getNewPosition,self.a1,self.a2)
 
     def testInputForRoom(self):
@@ -49,7 +48,7 @@ class TestRoom(unittest.TestCase):
         self.assertEqual(self.position1.getY(),self.b)
 
     def test_getNewPosition(self):
-        ANGLE = 20.0
+        ANGLE = 20
         SPEED = 10.0
         # Old coordinates and change in coordinates
         old_x = self.position1.getX()
@@ -84,7 +83,8 @@ class TestRoom(unittest.TestCase):
         self.assertEqual(self.room1.getNumTiles(), self.w * self.h)
     
     def test_getNumCleanedTiles(self):
-        self.assertEqual(self.room1.getNumCleanedTiles(),0)
+        clean_tiles = 0
+        self.assertEqual(self.room1.getNumCleanedTiles(),clean_tiles)
 
     def test_getRandomPosition(self):
         room2 = RectangularRoom(self.w,self.h)
