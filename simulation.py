@@ -1,7 +1,14 @@
-import matplotlib.pyplot as plt
 import visualize as vs
-from room import *
-from robot import *
+from room import Position, RectangularRoom
+from robot import Robot, StandardRobot,RandomWalkRobot
+
+try:
+    import matplotlib.pyplot as plt
+except ModuleNotFoundError:
+    print('Matplotlib needs to be installed for this to run')
+    print('Please install the library or run it in an IDE (e.g. Spyder) that has is preinstalled.')
+    print('Thank you.')
+
 
 
 def runSimulation(num_robots, speed, width, height, min_coverage, num_trials,
@@ -59,7 +66,7 @@ def showPlot1(saveFig = False):
     mean_times = []
     NUM_TRIALS = 10
     WIDTH = HEIGHT = 20
-    CLEAN_FRACTION = 80
+    CLEAN_FRACTION = 0.80
     SPEED = 1.0
     robo_number = []
     NUM_OF_ROBOTS = 10
@@ -67,7 +74,11 @@ def showPlot1(saveFig = False):
     # Simulate cleaning of room with 1 up to NUM_OF_ROBOTS
     for robot in range(1, NUM_OF_ROBOTS+1):
         robo_number.append(robot)
-        mean_times.append(runSimulation(robot,SPEED, WIDTH, HEIGHT, CLEAN_FRACTION/100,NUM_TRIALS,StandardRobot))
+        mean_times.append(runSimulation(robot,SPEED, 
+                                        WIDTH,HEIGHT,
+                                        CLEAN_FRACTION,
+                                        NUM_TRIALS,
+                                        StandardRobot))
     
     # Plot
     fig_size = (10,5)
@@ -92,7 +103,7 @@ def showPlot2():
     Produces a plot showing dependence of cleaning time on room shape.
     """
     NUM_OF_ROBOTS = 2
-    CLEAN_FRACTION = 80
+    CLEAN_FRACTION = 0.80
     NUM_TRIALS = 50
     SPEED = 1.0
     
@@ -106,7 +117,13 @@ def showPlot2():
     Hght = 1
     for room in range(len(ROOM_DIMENSIONS)):
         wToH_ratio.append(ROOM_DIMENSIONS[room][Wdth]/ROOM_DIMENSIONS[room][Hght])
-        mean_times.append(runSimulation(NUM_OF_ROBOTS,SPEED, ROOM_DIMENSIONS[room][Wdth],ROOM_DIMENSIONS[room][Hght],CLEAN_FRACTION/100,NUM_TRIALS,StandardRobot))
+        mean_times.append(runSimulation(NUM_OF_ROBOTS,
+                                        SPEED,
+                                        ROOM_DIMENSIONS[room][Wdth],
+                                        ROOM_DIMENSIONS[room][Hght],
+                                        CLEAN_FRACTION,
+                                        NUM_TRIALS,
+                                        StandardRobot))
     
     # Plot
     fig_size = (10,5)
@@ -122,14 +139,14 @@ def showPlot2():
 
 def showPlot3():
     """
-    Produces a plot comparing the two robot strategies.
+    Produces a plot comparing the two robot movement strategies.
     """
     # Define parameters
     mean_times_stand = []
     mean_times_rand = []
     num_trials = 10
     WIDTH = HEIGHT = 20
-    CLEAN_FRACTION = 80
+    CLEAN_FRACTION = 0.80
     NUM_ROBOTS = 15
     SPEED = 1.0
     robot_number = []
@@ -137,8 +154,8 @@ def showPlot3():
     # Simulate cleaning rooms with both types of robots from 1 to NUM_ROBOTS of robots
     for robot in range(1,NUM_ROBOTS + 1):
         robot_number.append(robot)
-        mean_times_stand.append(runSimulation(robot,SPEED, WIDTH, HEIGHT,CLEAN_FRACTION/100,num_trials,StandardRobot))
-        mean_times_rand.append(runSimulation(robot,SPEED, WIDTH, HEIGHT,CLEAN_FRACTION/100,num_trials,RandomWalkRobot))
+        mean_times_stand.append(runSimulation(robot,SPEED, WIDTH, HEIGHT,CLEAN_FRACTION,num_trials,StandardRobot))
+        mean_times_rand.append(runSimulation(robot,SPEED, WIDTH, HEIGHT,CLEAN_FRACTION,num_trials,RandomWalkRobot))
 
     # Plot mean times
     fig_size = (10,5)
@@ -155,10 +172,3 @@ def showPlot3():
     return fig
 
 
-def showPlots():
-    plot1 = showPlot1()
-    plot2 = showPlot2()
-    plot3 = showPlot3()
-    plt.show()
-
-showPlots()
