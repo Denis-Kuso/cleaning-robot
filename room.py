@@ -1,5 +1,7 @@
 import random
 import math
+
+
 class Position(object):
     """
     A Position represents a location in a two-dimensional room.
