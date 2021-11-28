@@ -1,7 +1,16 @@
 # Testing class Robot     
 import unittest
 from robot import *
-from room import * 
+from room import *
+
+class TestRobot(unittest.TestCase):
+    def SetUp(self):
+        pass
+    # Which functions take input
+        # Robot instances: room:RecRoom, speed: float (>0)
+        # Robot.setRobotPosition: position: Position
+        # setRobotDirection: direction: angle in degrees (float )
+         
 a = 5
 b = 10
 speed = 1

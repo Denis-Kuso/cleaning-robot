@@ -60,12 +60,12 @@ def showPlot1(saveFig = False):
     NUM_TRIALS = 10
     WIDTH = HEIGHT = 20
     CLEAN_FRACTION = 80
-    SPEED = 1
+    SPEED = 1.0
     robo_number = []
     NUM_OF_ROBOTS = 10
 
     # Simulate cleaning of room with 1 up to NUM_OF_ROBOTS
-    for robot in range(1,NUM_OF_ROBOTS +1):
+    for robot in range(1, NUM_OF_ROBOTS+1):
         robo_number.append(robot)
         mean_times.append(runSimulation(robot,SPEED, WIDTH, HEIGHT, CLEAN_FRACTION/100,NUM_TRIALS,StandardRobot))
     
@@ -94,7 +94,7 @@ def showPlot2():
     NUM_OF_ROBOTS = 2
     CLEAN_FRACTION = 80
     NUM_TRIALS = 50
-    SPEED = 1
+    SPEED = 1.0
     
     # Defined room dimensions all of same surface area
     ROOM_DIMENSIONS = [(20,20),(25,16),(40,10),(50,8),(80,5),(100,4)]
@@ -131,7 +131,7 @@ def showPlot3():
     WIDTH = HEIGHT = 20
     CLEAN_FRACTION = 80
     NUM_ROBOTS = 15
-    SPEED = 1
+    SPEED = 1.0
     robot_number = []
 
     # Simulate cleaning rooms with both types of robots from 1 to NUM_ROBOTS of robots
