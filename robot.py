@@ -1,7 +1,7 @@
 
 import math
 import random as random
-from room import *
+from room import Position, RectangularRoom
 
 
 class Robot(object):

@@ -1,13 +1,15 @@
 import visualize as vs
 from room import Position, RectangularRoom
 from robot import Robot, StandardRobot,RandomWalkRobot
-
+import sys
 try:
     import matplotlib.pyplot as plt
 except ModuleNotFoundError:
     print('Matplotlib needs to be installed for this to run')
     print('Please install the library or run it in an IDE (e.g. Spyder) that has is preinstalled.')
     print('Thank you.')
+    sys.exit(1)
+
 
 
 
@@ -169,6 +171,7 @@ def showPlot3():
     plt.minorticks_off()
     plt.xlabel('Number of robots')
     plt.title(f"Time to clean {CLEAN_FRACTION}% of a {WIDTH}x{HEIGHT} room")
+    plt.show()
     return fig
 
 

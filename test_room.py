@@ -1,5 +1,5 @@
-from room import *
-import unittest
+from room import Position, RectangularRoom
+import unittest, math
 
 class TestRoom(unittest.TestCase):
     
@@ -35,8 +35,16 @@ class TestRoom(unittest.TestCase):
 
     def testInputForRoom(self):
         expectedErr = [TypeError,ValueError,TypeError,AssertionError,AssertionError]
-        fncs = [RectangularRoom,RectangularRoom,self.room1.cleanTileAtPosition,self.room1.isTileCleaned,self.room1.isPositionInRoom]
-        inputs = [(self.a,self.b),(self.h,int(self.a2)),(self.a1,self.b),(self.a,self.b),(self.b,)]
+        fncs = [RectangularRoom,
+                RectangularRoom,
+                self.room1.cleanTileAtPosition,
+                self.room1.isTileCleaned,
+                self.room1.isPositionInRoom]
+        inputs = [(self.a,self.b),
+                (self.h,int(self.a2)),
+                (self.a1,self.b),
+                (self.a,self.b),
+                (self.b,)]
         
         for example in range(len(expectedErr)):
             self.assertRaises(expectedErr[example],fncs[example],*inputs[example])
